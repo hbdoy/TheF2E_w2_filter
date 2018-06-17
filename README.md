@@ -1,4 +1,4 @@
-# TheF2E_w1_todolist
+# TheF2E_w2_filter
 更多關於 TheF2E 挑戰的資訊及其他週作品
 
 https://github.com/hbdoy/TheF2E
