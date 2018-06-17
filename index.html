@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="container-fluid">
+            <div class="row" id="myNavBar">
+                <div class="col-md-3 pl-md-5">
+                    <a class="navbar-brand font-weight-bold" href="/index.html">HaveFun</a>
+                </div>
+                <div class="px-4 py-3 p-md-0 searchFormBg col-md-9 d-flex align-items-center justify-content-md-start justify-content-center">
+                    <form class="d-flex justify-content-start searchForm">
+                        <i class="fas fa-search"></i>
+                        <input class="w-100 mx-2 searchInputColor" id="searchInput" type="search" placeholder="Explore your own activities" aria-label="Search">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 px-0 px-md-3">
+                    <div class="d-none d-md-block" style="background: #EBEBEB">
+                        <div class="sideBar px-4 py-3">
+                            <h5 class="font-weight-bold">Location</h5>
+                            <form>
+                                <select class="custom-select" id="userLocation">
+                                    <option>Taiwan</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="sideBar px-4 py-3">
+                            <h5 class="font-weight-bold">Date</h5>
+                            <form class="p-1">
+                                <div class="form-group row">
+                                    <label for="startDate" class="col-sm-2 col-form-label">from</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="startDate" value="2018-05-24">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="endDate" class="col-sm-2 col-form-label">to</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="endDate" value="2018-06-01">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="sideBar px-4 py-3">
+                            <h5 class="font-weight-bold">Categories</h5>
+                            <form>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                    <label class="form-check-label" for="defaultCheck1">
+                                        All
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                    <label class="form-check-label" for="defaultCheck2">
+                                        Entertainment
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                                    <label class="form-check-label" for="defaultCheck3">
+                                        Food
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                                    <label class="form-check-label" for="defaultCheck4">
+                                        Learning
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
+                                    <label class="form-check-label" for="defaultCheck5">
+                                        Outdoors
+                                    </label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="accordion" class="d-block d-md-none">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="font-weight-bold btn btn-link text-dark" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        Location
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <form>
+                                        <select class="custom-select" id="userLocation">
+                                            <option>Taiwan</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingTwo">
+                                <h5 class="mb-0">
+                                    <button class="font-weight-bold btn btn-link text-dark collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        Date
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    <form class="p-1">
+                                        <div class="form-group row">
+                                            <label for="startDate" class="col-sm-2 col-form-label">from</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="startDate" value="2018-05-24">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="endDate" class="col-sm-2 col-form-label">to</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" id="endDate" value="2018-06-01">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingThree">
+                                <h5 class="mb-0">
+                                    <button class="font-weight-bold btn btn-link text-dark collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                                        aria-controls="collapseThree">
+                                        Categories
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                All
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                            <label class="form-check-label" for="defaultCheck2">
+                                                Entertainment
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                                            <label class="form-check-label" for="defaultCheck3">
+                                                Food
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                                            <label class="form-check-label" for="defaultCheck4">
+                                                Learning
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
+                                            <label class="form-check-label" for="defaultCheck5">
+                                                Outdoors
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="mt-3 mb-4">
+                        <h5>
+                            Showing
+                            <span class="searchNum">15</span> results by…
+                        </h5>
+                        <span class="searchTextBadge px-3 py-1 mr-1">
+                            Koahsiung
+                            <i class="far fa-times-circle"></i>
+                        </span>
+                        <span class="searchTextBadge px-3 py-1">
+                            Entertainment
+                            <i class="far fa-times-circle"></i>
+                        </span>
+                    </div>
+                    <div class="myCard row mx-2 mb-4">
+                        <div class="col-lg-3 p-0">
+                            <div class="bgImg w-100 h-100" style="min-height: 196px; background-image: url(img/0.jpg)"></div>
+                            <!-- <img src="img/0.jpg" class="img-fluid" style="min-width: 220px;max-height: 220px"> -->
+                        </div>
+                        <div class="col-lg-9">
+                            <h5 class="font-weight-bold my-3" style="color: #9013FE;">Kogi Cosby sweater.</h5>
+                            <p class="card-text-maxHeight">Donec euismod scelerisque ligula. Maecenas eu varius risus, eu aliquet arcu. Curabitur fermentum
+                                suscipit est, tincidunt mattis lorem luctus id. Donec eget massa a diam condimentum pretium.
+                                Aliquam erat volutpat. Integer ut tincidunt orci. Etiam tristique, elit ut consectetur iaculis,
+                                metus lectus mattis justo, vel mollis eros neque quis augue. Sed lobortis ultrices lacus,
+                                a placerat metus rutrum sit amet. Aenean ut suscipit justo.</p>
+                            <p>
+                                <span class="font-weight-bold mr-2">Ethan Foster</span>
+                                <span class="enterTag px-2">Entertainment</span>
+                            </p>
+                            <div class="row pb-3">
+                                <div class="col-md-3 mb-1 pr-0 card-text-badgeColor">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kaohsiung City</span>
+                                </div>
+                                <div class="col-md-4 pl-md-0 card-text-badgeColor">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span>2018/5/24 - 2018/5/31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myCard row mx-2 mb-4">
+                        <div class="col-lg-3 p-0">
+                            <div class="bgImg w-100 h-100" style="min-height: 196px; background-image: url(img/1.jpg)"></div>
+                            <!-- <img src="img/0.jpg" class="img-fluid" style="min-width: 220px;max-height: 220px"> -->
+                        </div>
+                        <div class="col-lg-9">
+                            <h5 class="font-weight-bold my-3" style="color: #9013FE;">In the tumultuous business.</h5>
+                            <p class="card-text-maxHeight">It was a humorously perilous business for both of us. For, before we proceed further, it must
+                                be said that the monkey-rope was fast at both ends; fast to Queequeg's broad canvas belt,
+                                and fast to my narrow leather one. So that for better or for worse, we two, for the time,
+                                were wedded; and should poor Queequeg sink to rise no more, then both usage and honour demanded,
+                                that instead of cutting the cord, it should drag me down in his.</p>
+                            <p>
+                                <span class="font-weight-bold mr-2">Herman Cobb</span>
+                                <span class="enterTag px-2">Entertainment</span>
+                            </p>
+                            <div class="row pb-3">
+                                <div class="col-md-3 mb-1 mb-md-0 pr-0 card-text-badgeColor">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kaohsiung City</span>
+                                </div>
+                                <div class="col-md-4 pl-md-0 card-text-badgeColor">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span>2018/5/24 - 2018/5/31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myCard row mx-2 mb-4">
+                        <div class="col-lg-3 p-0">
+                            <div class="bgImg w-100 h-100" style="min-height: 196px; background-image: url(img/2.jpg)"></div>
+                            <!-- <img src="img/0.jpg" class="img-fluid" style="min-width: 220px;max-height: 220px"> -->
+                        </div>
+                        <div class="col-lg-9">
+                            <h5 class="font-weight-bold my-3" style="color: #9013FE;">I have hinted that I would often jerk poor Queequeg from between the wha.</h5>
+                            <p class="card-text-maxHeight">In the tumultuous business of cutting-in and attending to a whale, there is much running backwards
+                                and forwards among the crew. Now hands are wanted here, and then again hands are wanted there.
+                                There is no staying in any one place; for at one and the same time everything has to be done
+                                everywhere. It is much the same with him who endeavors the description of the scene. We must
+                                now retrace our way a little. It was mentioned that up.</p>
+                            <p>
+                                <span class="font-weight-bold mr-2">Landon Powers</span>
+                                <span class="enterTag px-2">Entertainment</span>
+                            </p>
+                            <div class="row pb-3">
+                                <div class="col-md-3 mb-1 pr-0 card-text-badgeColor">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kaohsiung City</span>
+                                </div>
+                                <div class="col-md-4 pl-md-0 card-text-badgeColor">
+                                    <i class="far fa-calendar-alt"></i>
+                                    <span>2018/5/24 - 2018/5/31</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mx-2 mb-2 d-flex justify-content-md-end justify-content-center">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">4</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">5</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: "Hello World"
+            },
+            // 載入前就先發ajax
+            created: function () {
+                // fetch(
+                //         'https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97', {
+                //             method: 'get',
+                //         })
+                //     .then((resp) => {
+                //         return resp.json();
+                //     })
+                //     .then((response) => {
+                //         if (response.success) {
+                //             console.log(response);
+                //         } else {
+                //             console.log(response);
+                //         }
+                //     });
+            },
+            methods: {
+                test(text) {},
+            },
+            computed: {
+                test() {
+                    if (this.chosenClass != 0) {
+                        this.dataIndex = 1;
+                        return this.lists.filter((val) => {
+                            return val.classification_id == this.chosenClass;
+                        });
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
